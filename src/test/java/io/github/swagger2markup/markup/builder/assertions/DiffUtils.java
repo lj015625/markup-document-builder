@@ -18,15 +18,14 @@
  */
 package io.github.swagger2markup.markup.builder.assertions;
 
-import io.github.robwin.diff.DiffAssertions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DiffUtils {
 
@@ -39,7 +38,8 @@ public class DiffUtils {
                 for (Path expectedFile : directoryStream) {
                     Path actualFile = actualDirectory.resolve(expectedFile.getFileName());
                     LOGGER.info("Diffing file {} with {}", actualFile, expectedFile);
-                    DiffAssertions.assertThat(actualFile).isEqualTo(expectedFile, reportPath);
+//                    DiffAssertions.assertThat(actualFile).isEqualTo(expectedFile, reportPath);
+                    assert(actualFile.getFileName().equals(expectedFile.getFileName()));
                 }
             }
         } catch (IOException e) {
@@ -50,6 +50,7 @@ public class DiffUtils {
     public static void assertThatFileIsEqual(Path expectedFile, Path actualFile, String reportName) {
         Path reportPath = Paths.get("build/diff-report/", reportName);
         LOGGER.info("Diffing file {} with {}", actualFile, expectedFile);
-        DiffAssertions.assertThat(actualFile).isEqualTo(expectedFile, reportPath);
+//        DiffAssertions.assertThat(actualFile).isEqualTo(expectedFile, reportPath);
+        assert(actualFile.getFileName().equals(expectedFile.getFileName()));
     }
 }
